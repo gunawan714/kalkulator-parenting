@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator Pola Asuh Digital</title>
+<style>
+:root{
+--navy:#0A2F44;
+--gold:#F2C94C;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:Segoe UI,Arial,sans-serif;
+background:linear-gradient(135deg,#eaf2f7,#dfeaf1);
+padding:20px;
+}
+.app{
+max-width:450px;
+margin:auto;
+background:#fff;
+border-radius:28px;
+overflow:hidden;
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+}
+.header{
+background:var(--navy);
+color:#fff;
+padding:24px;
+text-align:center;
+}
+.logo{
+font-size:44px;
+}
+.header h1{font-size:1.3rem;margin-top:8px}
+.header p{color:#ffe9a6;font-size:.85rem}
+.content{padding:20px}
+label{display:block;margin:14px 0 8px;font-weight:700;color:var(--navy)}
+input,select{
+width:100%;padding:12px;border:2px solid #d9e3ea;border-radius:14px;
+}
+button{
+width:100%;padding:14px;border:none;border-radius:16px;
+font-weight:700;cursor:pointer;
+}
+.btn{
+background:var(--gold);
+margin-top:18px;
+}
+.result{
+display:none;
+margin-top:20px;
+padding:18px;
+background:#fafafa;
+border-radius:20px;
+animation:fade .4s;
+}
+.gauge-wrap{text-align:center}
+svg{overflow:visible}
+.score{
+font-size:34px;font-weight:800;color:var(--navy)
+}
+.card{
+margin-top:12px;
+padding:12px;
+border-radius:14px;
+background:white;
+border-left:5px solid var(--gold);
+}
+.wa{
+background:#25D366;
+color:#fff;
+margin-top:12px;
+}
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+.confetti{
+position:fixed;width:8px;height:8px;border-radius:50%;
+animation:fall 3s linear forwards;
+}
+@keyframes fall{
+to{transform:translateY(110vh) rotate(720deg);opacity:0}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="header">
+<div class="logo">🛡️👨‍👩‍👧</div>
+<h1>Kalkulator Pola Asuh Digital</h1>
+<p>Komnas Perlindungan Anak Provinsi Banten</p>
+</div>
+
+<div class="content">
+<label>Nama Anak (Opsional)</label>
+<input id="nama">
+
+<label>Usia Anak</label>
+<select id="usia">
+<option value="2-5">2–5 Tahun</option>
+<option value="6-9">6–9 Tahun</option>
+<option value="10-12">10–12 Tahun</option>
+</select>
+
+<label>Reaksi Saat Screen Time Habis</label>
+<select id="reaksi">
+<option value="tenang">Tenang</option>
+<option value="merengek">Merengek</option>
+<option value="tantrum">Tantrum</option>
+<option value="agresif">Agresif</option>
+</select>
+
+<label>Aplikasi Favorit</label>
+<select id="aplikasi">
+<option value="youtube">YouTube Kids</option>
+<option value="game">Game Online</option>
+<option value="medsos">Media Sosial</option>
+<option value="belajar">Belajar Interaktif</option>
+</select>
+
+<button class="btn" onclick="hitung()">Lihat Hasil</button>
+
+<div id="hasil" class="result">
+<div class="gauge-wrap">
+<svg width="240" height="140">
+<path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#ddd" stroke-width="18"/>
+<path id="meter" d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#F2C94C" stroke-width="18" stroke-linecap="round"/>
+</svg>
+<div class="score" id="score">100</div>
+</div>
+
+<div class="card" id="status"></div>
+<div class="card" id="warna"></div>
+<div class="card" id="tips"></div>
+
+<button class="wa" onclick="alert('Tips akan dikirim ke nomor WhatsApp Anda (demo)')">Kirim ke WhatsApp</button>
+</div>
+</div>
+</div>
+
+<script>
+function hitung(){
+let skor=100;
+
+const usia=usia.value;
+const reaksi=document.getElementById('reaksi').value;
+const aplikasi=document.getElementById('aplikasi').value;
+const nama=document.getElementById('nama').value || 'Anak Anda';
+
+if(usia==='6-9') skor-=5;
+if(reaksi==='merengek') skor-=10;
+if(reaksi==='tantrum') skor-=20;
+if(reaksi==='agresif') skor-=30;
+
+if(aplikasi==='medsos') skor-=15;
+if(aplikasi==='belajar') skor+=10;
+
+skor=Math.max(0,Math.min(100,skor));
+
+document.getElementById('score').innerText=skor;
+
+const meter=document.getElementById('meter');
+const len=314;
+meter.style.strokeDasharray=len;
+meter.style.strokeDashoffset=len-(skor/100*len);
+
+let warna='';
+let warnaHex='';
+
+if(aplikasi==='youtube'){warna='Kuning Fokus';warnaHex='#F2C94C';}
+if(aplikasi==='game'){warna='Ungu Fokus';warnaHex='#8E44AD';}
+if(aplikasi==='belajar'){warna='Hijau Fokus';warnaHex='#27AE60';}
+if(aplikasi==='medsos'){warna='Oranye Fokus';warnaHex='#F2994A';}
+
+document.getElementById('warna').innerHTML=
+'🎨 Warna Fokus: <b>'+warna+'</b>';
+document.getElementById('warna').style.borderLeftColor=warnaHex;
+
+const tips=[
+'Buat ritual 3 menit sebelum gadget dimatikan.',
+'Ajak anak menceritakan hal menarik yang ditonton hari ini.',
+'Gunakan jadwal screen time dan checklist harian.',
+'Lakukan aktivitas fisik 3 menit setelah layar dimatikan.',
+'Tanyakan: apa yang dipelajari hari ini?'
+];
+
+let tip=tips[0];
+if(aplikasi==='youtube') tip=tips[1];
+if(aplikasi==='medsos') tip=tips[2];
+if(aplikasi==='game') tip=tips[3];
+if(aplikasi==='belajar') tip=tips[4];
+
+document.getElementById('tips').innerHTML=
+'💡 <b>Tips untuk '+nama+':</b><br>'+tip;
+
+let status='';
+if(skor>=80) status='🏆 Keluarga Digital Tangguh';
+else if(skor>=60) status='🌟 Orang Tua Tanggap Digital';
+else status='🌱 Perlu Pendampingan Lebih Intensif';
+
+document.getElementById('status').innerHTML=status;
+
+document.getElementById('hasil').style.display='block';
+
+if(skor>=80) confetti();
+}
+
+function confetti(){
+for(let i=0;i<60;i++){
+let c=document.createElement('div');
+c.className='confetti';
+c.style.left=Math.random()*100+'vw';
+c.style.background=['#F2C94C','#0A2F44','#27AE60','#8E44AD'][Math.floor(Math.random()*4)];
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),3000);
+}
+}
+</script>
+</body>
+</html>

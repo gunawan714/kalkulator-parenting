@@ -1,369 +1,537 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalkulator Pola Asuh Digital Interaktif</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Kalkulator Pola Asuh Digital - Komnas Anak Banten</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-<style>
-:root{
-    --navy:#0A2F44;
-    --gold:#F2C94C;
-}
+        body {
+            background: linear-gradient(145deg, #EFF3F8 0%, #E2E9F2 100%);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            padding: 20px 16px 40px;
+            min-height: 100vh;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        /* Container utama seperti aplikasi mobile */
+        .app-container {
+            max-width: 560px;
+            margin: 0 auto;
+            border-radius: 44px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(0px);
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            padding: 20px 20px 32px;
+            transition: all 0.2s ease;
+        }
 
-body{
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(180deg,#0A2F44,#123f58);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    padding:20px;
-}
+        /* Header Komnas */
+        .komnas-header {
+            text-align: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(242, 201, 76, 0.4);
+        }
+        .komnas-logo {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            background: #0A2F44;
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 60px;
+            color: #F2C94C;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .komnas-logo span {
+            color: white;
+            font-weight: 400;
+        }
+        .subhead {
+            font-size: 0.75rem;
+            color: #2C5A6E;
+            margin-top: 8px;
+            font-weight: 500;
+        }
 
-.container{
-    width:100%;
-    max-width:450px;
-    background:white;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 10px 35px rgba(0,0,0,.25);
-    animation:fadeIn .6s ease;
-}
+        /* Judul */
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0A2F44 0%, #1B5A7A 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            margin: 8px 0 4px;
+        }
+        .tagline {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #4A6272;
+            margin-bottom: 28px;
+            font-weight: 500;
+        }
 
-.header{
-    background:var(--navy);
-    color:white;
-    padding:24px;
-    text-align:center;
-}
+        /* Kartu form */
+        .card {
+            background: white;
+            border-radius: 32px;
+            padding: 20px 18px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #1E3B4A;
+            margin-bottom: 8px;
+        }
+        label i {
+            font-style: normal;
+            font-size: 1.2rem;
+        }
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 28px;
+            border: 1.5px solid #E2EDF2;
+            background: #FFFFFF;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            outline: none;
+            font-family: inherit;
+        }
+        input:focus, select:focus {
+            border-color: #F2C94C;
+            box-shadow: 0 0 0 3px rgba(242, 201, 76, 0.2);
+        }
+        .radio-group {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .radio-group label {
+            font-weight: 500;
+            gap: 6px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        hr {
+            margin: 16px 0;
+            border: none;
+            height: 1px;
+            background: #E9EFF4;
+        }
+        .note {
+            font-size: 0.7rem;
+            color: #7A8E9B;
+            margin-top: 12px;
+            text-align: center;
+        }
 
-.header h1{
-    font-size:1.4rem;
-    line-height:1.4;
-}
+        /* Tombol */
+        .btn-primary {
+            background: linear-gradient(105deg, #0A2F44 0%, #1E5A74 100%);
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 48px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 8px 18px rgba(10, 47, 68, 0.2);
+            margin-top: 12px;
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+            background: #0A2F44;
+        }
 
-.header p{
-    opacity:.85;
-    margin-top:8px;
-    font-size:.9rem;
-}
+        /* Speedometer */
+        .speedometer-container {
+            background: #F9FCFE;
+            border-radius: 40px;
+            padding: 16px 12px 24px;
+            text-align: center;
+            margin: 8px 0 20px;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03), 0 8px 20px rgba(0,0,0,0.05);
+        }
+        canvas {
+            width: 100%;
+            max-width: 260px;
+            margin: 0 auto;
+            display: block;
+        }
+        .score-value {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: #0A2F44;
+            margin-top: 8px;
+            letter-spacing: -1px;
+        }
+        .score-label {
+            font-size: 0.8rem;
+            color: #638296;
+            font-weight: 500;
+        }
+        .grade-badge {
+            display: inline-block;
+            background: #F2C94C20;
+            padding: 4px 16px;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #B45F1B;
+            margin-top: 8px;
+        }
 
-.content{
-    padding:20px;
-}
+        /* tips area */
+        .tips-card {
+            background: #FFF8E7;
+            border-left: 6px solid #F2C94C;
+            padding: 18px;
+            border-radius: 28px;
+            margin-top: 24px;
+        }
+        .tips-title {
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            color: #C57F1E;
+        }
+        .tips-text {
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: #2F4858;
+            font-weight: 500;
+        }
 
-.form-group{
-    margin-bottom:18px;
-}
-
-label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:600;
-    color:var(--navy);
-}
-
-select{
-    width:100%;
-    padding:12px;
-    border:2px solid #ddd;
-    border-radius:12px;
-    font-size:15px;
-}
-
-button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:14px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:bold;
-    transition:.3s;
-}
-
-.btn-primary{
-    background:var(--gold);
-    color:#222;
-}
-
-.btn-primary:hover{
-    transform:translateY(-2px);
-}
-
-.result{
-    display:none;
-    margin-top:20px;
-    animation:slideUp .6s ease;
-}
-
-.score-box{
-    text-align:center;
-    background:#f7f9fb;
-    border-radius:16px;
-    padding:18px;
-}
-
-.score{
-    font-size:48px;
-    font-weight:800;
-    color:var(--navy);
-}
-
-.color-card{
-    margin-top:15px;
-    border-radius:12px;
-    padding:14px;
-    color:white;
-    font-weight:bold;
-    text-align:center;
-}
-
-.tip-box{
-    margin-top:15px;
-    background:#fff8df;
-    border-left:5px solid var(--gold);
-    padding:14px;
-    border-radius:10px;
-    line-height:1.5;
-}
-
-.whatsapp{
-    margin-top:15px;
-    background:#25D366;
-    color:white;
-}
-
-.whatsapp:hover{
-    opacity:.9;
-}
-
-@keyframes fadeIn{
-    from{opacity:0;transform:translateY(20px);}
-    to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes slideUp{
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.confetti{
-    position:fixed;
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    animation:fall linear forwards;
-    z-index:999;
-}
-
-@keyframes fall{
-    to{
-        transform:translateY(110vh) rotate(720deg);
-        opacity:0;
-    }
-}
-</style>
+        .info-reference {
+            background: #EFF8FA;
+            border-radius: 24px;
+            padding: 16px;
+            font-size: 0.7rem;
+            color: #2C5A6E;
+            margin-top: 20px;
+            text-align: left;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.65rem;
+            margin-top: 24px;
+            color: #9AAFB9;
+        }
+        @media (max-width: 480px) {
+            .app-container { padding: 16px; }
+            .card { padding: 16px; }
+        }
+    </style>
 </head>
 <body>
+<div class="app-container">
+    <div class="komnas-header">
+        <div class="komnas-logo">KOMNAS <span>PERLINDUNGAN ANAK</span> PROVINSI BANTEN</div>
+        <div class="subhead">Pusat Edukasi Digital Parenting • Rujukan WHO & IDAI</div>
+    </div>
+    <h1>Kalkulator Pola Asuh Digital</h1>
+    <div class="tagline">Cek kesiapan Bunda & Ayah dalam mendampingi dunia digital anak</div>
 
-<div class="container">
-    <div class="header">
-        <h1>Kalkulator Pola Asuh Digital</h1>
-        <p>Temukan rekomendasi singkat sesuai kebiasaan digital anak Anda</p>
+    <!-- Area Form -->
+    <div class="card">
+        <div class="form-group">
+            <label><i>👧</i> Nama Anak</label>
+            <input type="text" id="childName" placeholder="cth: Aisha atau Rafa" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label><i>📅</i> Usia Anak (pedoman WHO/IDAI)</label>
+            <select id="ageGroup">
+                <option value="0">🏠 < 2 tahun (tanpa screen time)</option>
+                <option value="1">🧸 2 - 5 tahun (maks 1 jam/hari)</option>
+                <option value="2">📚 6 - 9 tahun (maks 1,5 jam/hari, ideal 1 jam)</option>
+                <option value="3">🎧 10 - 12 tahun (maks 2 jam/hari)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label><i>⏱️</i> Rata-rata screen time harian (jam)</label>
+            <input type="number" id="dailyScreenTime" step="0.5" value="1.0" min="0" max="8">
+            <div class="note">*Termasuk menonton, game, medsos</div>
+        </div>
+        <div class="form-group">
+            <label><i>🌙</i> Screen time 1 jam sebelum tidur?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="preSleep" value="yes"> Ya, sering</label>
+                <label><input type="radio" name="preSleep" value="no" checked> Tidak / kadang-kadang</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label><i>🍽️</i> Screen time saat makan (bersama keluarga)?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="mealScreen" value="yes"> Ya, sering</label>
+                <label><input type="radio" name="mealScreen" value="no" checked> Tidak / jarang</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label><i>👩‍👦</i> Pendampingan orang tua saat anak bermain gawai?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="parentalGuide" value="active"> Aktif (selalu menemani)</label>
+                <label><input type="radio" name="parentalGuide" value="partial" checked> Kadang-kadang</label>
+                <label><input type="radio" name="parentalGuide" value="minimal"> Minim / tanpa kontrol</label>
+            </div>
+        </div>
+        <button class="btn-primary" id="calculateBtn">✨ Lihat Skor & Rekomendasi ✨</button>
     </div>
 
-    <div class="content">
-
-        <div class="form-group">
-            <label>Usia anak?</label>
-            <select id="usia">
-                <option value="2-5">2–5 tahun</option>
-                <option value="6-9">6–9 tahun</option>
-                <option value="10-12">10–12 tahun</option>
-            </select>
+    <!-- Hasil: Speedometer + Skor -->
+    <div id="resultSection" style="display: none;">
+        <div class="speedometer-container">
+            <canvas id="speedCanvas" width="300" height="170" style="width:100%; max-width:280px; height:auto"></canvas>
+            <div class="score-value" id="scoreNumber">0</div>
+            <div class="score-label">Skor Keseimbangan Digital</div>
+            <div class="grade-badge" id="gradeLabel">Belum dihitung</div>
         </div>
-
-        <div class="form-group">
-            <label>Reaksi anak saat screen time habis?</label>
-            <select id="reaksi">
-                <option value="tenang">Tenang</option>
-                <option value="merengek">Merengek</option>
-                <option value="tantrum">Tantrum</option>
-                <option value="agresif">Agresif</option>
-            </select>
+        <div class="tips-card" id="tipsBox">
+            <div class="tips-title">💡 Rekomendasi & Penguatan Peran Orang Tua</div>
+            <div class="tips-text" id="tipsText">Masukkan data anak dan kebiasaan, lalu klik tombol di atas.</div>
         </div>
-
-        <div class="form-group">
-            <label>Aplikasi favorit anak?</label>
-            <select id="aplikasi">
-                <option value="youtube">YouTube Kids</option>
-                <option value="game">Game Online</option>
-                <option value="medsos">Media Sosial</option>
-                <option value="belajar">Belajar Interaktif</option>
-            </select>
+        <div class="info-reference" id="whoReference">
+            📖 <strong>Acuan WHO & IDAI</strong><br>
+            • Usia <2 tahun: hindari screen time kecuali video call.<br>
+            • 2-5 tahun: maksimal 1 jam/hari, kualitas interaktif.<br>
+            • 6-12 tahun: batasi 1-2 jam, pastikan tidak mengganggu tidur & makan.<br>
+            • IDAI: hindari gadget 1 jam sebelum tidur & saat makan.
         </div>
-
-        <button class="btn-primary" onclick="hitungSkor()">
-            Lihat Hasil
-        </button>
-
-        <div id="hasil" class="result">
-
-            <div class="score-box">
-                <div>Skor Keseimbangan Digital</div>
-                <div class="score" id="scoreValue">100</div>
-            </div>
-
-            <div id="warnaCard" class="color-card"></div>
-
-            <div class="tip-box">
-                <strong>Tips 3 Menit Hari Ini:</strong>
-                <p id="tipsText"></p>
-            </div>
-
-            <button class="whatsapp"
-                    onclick="alert('Tips akan dikirim ke nomor WhatsApp Anda (demo)')">
-                Kirim ke WhatsApp
-            </button>
-
-        </div>
-
     </div>
+    <footer>🔒 Data anonim - hanya untuk simulasi parenting positif. #OrangTuaTangguhDigital</footer>
 </div>
 
 <script>
+    (function() {
+        // DOM elements
+        const childNameInput = document.getElementById('childName');
+        const ageGroup = document.getElementById('ageGroup');
+        const dailyScreenTime = document.getElementById('dailyScreenTime');
+        const preSleepRadios = document.querySelectorAll('input[name="preSleep"]');
+        const mealRadios = document.querySelectorAll('input[name="mealScreen"]');
+        const guideRadios = document.querySelectorAll('input[name="parentalGuide"]');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resultSection = document.getElementById('resultSection');
+        const scoreNumberSpan = document.getElementById('scoreNumber');
+        const gradeLabelSpan = document.getElementById('gradeLabel');
+        const tipsTextDiv = document.getElementById('tipsText');
+        let canvas = document.getElementById('speedCanvas');
+        let ctx = canvas.getContext('2d');
 
-function hitungSkor(){
+        function getSelectedRadioValue(radios) {
+            for(let radio of radios) {
+                if(radio.checked) return radio.value;
+            }
+            return 'no';
+        }
 
-    const usia = document.getElementById("usia").value;
-    const reaksi = document.getElementById("reaksi").value;
-    const aplikasi = document.getElementById("aplikasi").value;
+        // fungsi menggambar speedometer (skala 0-100)
+        function drawSpeedometer(score) {
+            if(!ctx) return;
+            let w = canvas.width, h = canvas.height;
+            ctx.clearRect(0, 0, w, h);
+            let centerX = w/2, centerY = h-25;
+            let radius = 120;
+            let angleStart = Math.PI * 0.8;
+            let angleEnd = Math.PI * 2.2;
+            // background arc
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, angleStart, angleEnd);
+            ctx.strokeStyle = "#DCE6EC";
+            ctx.lineWidth = 22;
+            ctx.stroke();
+            // gradasi warna sesuai skor
+            let percent = Math.min(100, Math.max(0, score)) / 100;
+            let angle = angleStart + (angleEnd - angleStart) * percent;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, angleStart, angle);
+            let gradient = ctx.createLinearGradient(centerX-40, centerY-20, centerX+40, centerY+10);
+            if(score < 40) gradient.addColorStop(0, '#E85D5D');
+            else if(score < 70) gradient.addColorStop(0, '#F2C94C');
+            else gradient.addColorStop(0, '#2D9C7A');
+            gradient.addColorStop(1, '#1A7F64');
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 22;
+            ctx.stroke();
+            // jarum
+            let needleAngle = angle;
+            let needleLen = radius - 15;
+            let needleX = centerX + Math.cos(needleAngle) * needleLen;
+            let needleY = centerY + Math.sin(needleAngle) * needleLen;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(needleX, needleY);
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#1F2E38";
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 14, 0, 2*Math.PI);
+            ctx.fillStyle = "#0A2F44";
+            ctx.fill();
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 6, 0, 2*Math.PI);
+            ctx.fill();
+            // angka minimal 
+            ctx.font = "bold 14px 'Inter'";
+            ctx.fillStyle = "#5F7E8F";
+            ctx.fillText("0", centerX-85, centerY+8);
+            ctx.fillText("50", centerX-12, centerY-62);
+            ctx.fillText("100", centerX+68, centerY+8);
+        }
 
-    let skor = 100;
-
-    if(usia === "6-9") skor -= 5;
-
-    if(reaksi === "tantrum") skor -= 20;
-    if(reaksi === "agresif") skor -= 30;
-    if(reaksi === "merengek") skor -= 10;
-
-    if(aplikasi === "medsos") skor -= 15;
-    if(aplikasi === "belajar") skor += 10;
-
-    skor = Math.max(0, Math.min(100, skor));
-
-    document.getElementById("scoreValue").innerText = skor;
-
-    const warnaCard = document.getElementById("warnaCard");
-
-    let warnaNama = "";
-    let warnaHex = "";
-
-    switch(aplikasi){
-        case "youtube":
-            warnaNama = "Kuning Fokus";
-            warnaHex = "#F2C94C";
-            break;
-
-        case "game":
-            warnaNama = "Ungu Fokus";
-            warnaHex = "#8E44AD";
-            break;
-
-        case "belajar":
-            warnaNama = "Hijau Fokus";
-            warnaHex = "#27AE60";
-            break;
-
-        case "medsos":
-            warnaNama = "Oranye Fokus";
-            warnaHex = "#F2994A";
-            break;
-    }
-
-    warnaCard.style.background = warnaHex;
-    warnaCard.innerHTML =
-        "Warna Fokus yang Direkomendasikan: <br><strong>" +
-        warnaNama + "</strong>";
-
-    const tips = [
-
-        "Buat ritual 3 menit sebelum gadget dimatikan: hitung mundur bersama lalu berikan pelukan atau high-five.",
-
-        "Ajak anak menceritakan satu hal paling menarik yang ditonton hari ini selama 3 menit penuh tanpa interupsi.",
-
-        "Tempelkan jadwal screen time sederhana dan biarkan anak memberi tanda centang setelah berhasil mematuhinya.",
-
-        "Gunakan timer visual dan lakukan aktivitas fisik ringan selama 3 menit setelah layar dimatikan.",
-
-        "Tanyakan tiga pertanyaan reflektif: Apa yang dipelajari? Apa yang menyenangkan? Apa yang ingin dilakukan besok?"
-    ];
-
-    let index = 0;
-
-    if(aplikasi === "belajar") index = 4;
-    else if(aplikasi === "youtube") index = 1;
-    else if(aplikasi === "game") index = 3;
-    else if(aplikasi === "medsos") index = 2;
-
-    if(reaksi === "tantrum" || reaksi === "agresif"){
-        index = 0;
-    }
-
-    document.getElementById("tipsText").innerText = tips[index];
-
-    document.getElementById("hasil").style.display = "block";
-
-    if(skor >= 80){
-        confetti();
-    }
-}
-
-function confetti(){
-
-    const colors = [
-        "#F2C94C",
-        "#0A2F44",
-        "#27AE60",
-        "#8E44AD",
-        "#F2994A"
-    ];
-
-    for(let i=0;i<80;i++){
-
-        const piece = document.createElement("div");
-
-        piece.classList.add("confetti");
-
-        piece.style.left = Math.random()*100 + "vw";
-        piece.style.top = "-10px";
-        piece.style.background =
-            colors[Math.floor(Math.random()*colors.length)];
-
-        piece.style.animationDuration =
-            (Math.random()*3+2) + "s";
-
-        document.body.appendChild(piece);
-
-        setTimeout(()=>{
-            piece.remove();
-        },5000);
-    }
-}
+        // hitung skor berdasarkan kriteria WHO/IDAI
+        function calculateScore() {
+            let ageVal = ageGroup.value; // '0','1','2','3'
+            let daily = parseFloat(dailyScreenTime.value);
+            if(isNaN(daily)) daily = 0;
+            let preSleep = getSelectedRadioValue(preSleepRadios);
+            let mealScreen = getSelectedRadioValue(mealRadios);
+            let parentalGuide = getSelectedRadioValue(guideRadios);
+            
+            let maxAllowed = 0;
+            // ideal rekomendasi (batas maksimal rekomendasi WHO/IDAI)
+            if(ageVal === '0') maxAllowed = 0.0;    // <2 tahun -> 0 jam
+            else if(ageVal === '1') maxAllowed = 1.0; // 2-5 tahun maks 1 jam
+            else if(ageVal === '2') maxAllowed = 1.5; // 6-9 tahun rekomendasi IDAI max 1.5 jam (90 menit)
+            else maxAllowed = 2.0;   // 10-12 tahun max 2 jam
+            
+            // base score 100
+            let score = 100;
+            
+            // 1. Durasi screen time: jika melebihi batas, potong progressive
+            if(daily > maxAllowed) {
+                let exceed = daily - maxAllowed;
+                // potongan hingga maks 40 poin
+                let penalty = Math.min(40, exceed * 18);
+                score -= penalty;
+            } else if (daily <= maxAllowed && ageVal !== '0') {
+                // jika kurang dari batas + reward kecil
+                let bonus = Math.min(8, (maxAllowed - daily) * 3);
+                score += bonus;
+            }
+            // khusus usia <2 tahun: jika screen time >0 pelanggaran berat
+            if(ageVal === '0' && daily > 0.25) {
+                score -= 45;
+            } else if(ageVal === '0' && daily > 0) {
+                score -= 25;
+            }
+            
+            // 2. Screen time 1 jam sebelum tidur => -15 poin
+            if(preSleep === 'yes') score -= 15;
+            // 3. Screen time saat makan => -12 poin
+            if(mealScreen === 'yes') score -= 12;
+            
+            // 4. Pendampingan orang tua
+            if(parentalGuide === 'active') score += 12;
+            else if(parentalGuide === 'minimal') score -= 18;
+            else if(parentalGuide === 'partial') score += 2;
+            
+            // batasi 0-100
+            score = Math.min(100, Math.max(0, Math.round(score)));
+            return score;
+        }
+        
+        // tips yang menguatkan peran orang tua berdasarkan skor dan kondisi
+        function generateTips(score, childName, ageVal, daily, preSleep, mealScreen, parentalGuide) {
+            let name = childName.trim() || "Ananda";
+            let ageText = "";
+            if(ageVal === '0') ageText = "di bawah 2 tahun";
+            else if(ageVal === '1') ageText = "2-5 tahun";
+            else if(ageVal === '2') ageText = "6-9 tahun";
+            else ageText = "10-12 tahun";
+            
+            let mainTip = "";
+            if(score >= 85) {
+                mainTip = `🎉 Selamat, Bunda/Ayah! Pola asuh digital ${name} sudah sangat seimbang. Pertahankan kebiasaan baik, terus dampingi dan ciptakan momen tanpa layar yang bermakna. Anak usia ${ageText} butuh stimulasi nyata lebih dari sekadar gawai.`;
+            } else if(score >= 60) {
+                mainTip = `👍 Lumayan baik! ${name} memiliki beberapa kebiasaan yang perlu dikurangi. Fokus pada konsistensi: batasi gadget sebelum tidur dan perbanyak interaksi fisik. Ingat, rekomendasi IDAI untuk usia ${ageText} adalah maksimal ${ageVal==='1'?'1 jam':(ageVal==='2'?'1,5 jam':'2 jam')} per hari.`;
+            } else {
+                mainTip = `⚠️ Waktunya evaluasi, Ayah/Bunda. ${name} memiliki paparan layar cukup tinggi. Mulai dari komitmen kecil: aturan "no gadget saat makan", area bebas layar 1 jam sebelum tidur, serta dampingi kontennya. Kehangatan orang tua lebih adiktif daripada algoritma.`;
+            }
+            
+            // tambahan spesifik
+            let spesifik = "";
+            if(daily > 2.5) spesifik += `📱 Screen time ${daily} jam/hari cukup tinggi untuk usia ${ageText}. Coba gunakan timer visual dan ajak ${name} bermain di luar. `;
+            if(preSleep === 'yes') spesifik += `🌙 Paparan layar sebelum tidur mengganggu melatonin. Ganti dengan membaca buku atau cerita 30 menit. `;
+            if(mealScreen === 'yes') spesifik += `🍽️ Waktu makan adalah momen komunikasi keluarga. Libatkan ${name} menyusun piring, bukan menonton video. `;
+            if(parentalGuide === 'minimal') spesifik += `❤️ Pendampingan aktif sangat vital: coba gunakan fitur parental control dan diskusikan konten yang dilihat ${name}. `;
+            if(parentalGuide === 'active' && score<80) spesifik += `👪 Anda sudah mendampingi dengan baik, sekarang fokus pada pengurangan durasi dan jadwal tidur tanpa layar. `;
+            
+            let kuatkan = `💪 Peran orang tua > algoritma. Jadilah teladan dengan mengurangi screen time orang dewasa saat bersama anak. Komitmen "Digital Sabbath" seminggu sekali.`;
+            
+            return mainTip + " " + spesifik + " " + kuatkan;
+        }
+        
+        function updateResult() {
+            let childName = childNameInput.value;
+            let ageVal = ageGroup.value;
+            let daily = parseFloat(dailyScreenTime.value) || 0;
+            let preSleep = getSelectedRadioValue(preSleepRadios);
+            let mealScreen = getSelectedRadioValue(mealRadios);
+            let parentalGuide = getSelectedRadioValue(guideRadios);
+            
+            let score = calculateScore();
+            // draw speedometer
+            drawSpeedometer(score);
+            scoreNumberSpan.innerText = score;
+            
+            let grade = "";
+            if(score >= 85) grade = "🌟 Optimal | Pola Asuh Sehat";
+            else if(score >= 65) grade = "✅ Cukup Baik | Perlu sedikit penyesuaian";
+            else if(score >= 45) grade = "⚠️ Waspada | Perbaiki kebiasaan digital";
+            else grade = "🚨 Prioritas | Intervensi segera diperlukan";
+            gradeLabelSpan.innerText = grade;
+            
+            let tips = generateTips(score, childName, ageVal, daily, preSleep, mealScreen, parentalGuide);
+            tipsTextDiv.innerHTML = tips;
+            resultSection.style.display = "block";
+            // scroll sedikit ke hasil
+            setTimeout(() => resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+        }
+        
+        calculateBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // validasi minimal nama opsional
+            updateResult();
+        });
+        
+        // set default canvas draw kosong
+        drawSpeedometer(0);
+        // menampilkan hasil pertama kali? tidak, tetap tersembunyi, tapi nanti saat klik muncul.
+        // Inisialisasi opsi default radio dan lain-lain sudah baik.
+        // Biar lebih ramah, beri placeholder tips awal
+        document.getElementById('resultSection').style.display = 'none';
+    })();
 </script>
-
 </body>
 </html>

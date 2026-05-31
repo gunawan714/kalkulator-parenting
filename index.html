@@ -1,385 +1,369 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="1671">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator Pola Asuh Digital Interaktif</title>
+
+<style>
+:root{
+    --navy:#0A2F44;
+    --gold:#F2C94C;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(180deg,#0A2F44,#123f58);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:450px;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 35px rgba(0,0,0,.25);
+    animation:fadeIn .6s ease;
+}
+
+.header{
+    background:var(--navy);
+    color:white;
+    padding:24px;
+    text-align:center;
+}
+
+.header h1{
+    font-size:1.4rem;
+    line-height:1.4;
+}
+
+.header p{
+    opacity:.85;
+    margin-top:8px;
+    font-size:.9rem;
+}
+
+.content{
+    padding:20px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:var(--navy);
+}
+
+select{
+    width:100%;
+    padding:12px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:var(--gold);
+    color:#222;
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+}
+
+.result{
+    display:none;
+    margin-top:20px;
+    animation:slideUp .6s ease;
+}
+
+.score-box{
+    text-align:center;
+    background:#f7f9fb;
+    border-radius:16px;
+    padding:18px;
+}
+
+.score{
+    font-size:48px;
+    font-weight:800;
+    color:var(--navy);
+}
+
+.color-card{
+    margin-top:15px;
+    border-radius:12px;
+    padding:14px;
+    color:white;
+    font-weight:bold;
+    text-align:center;
+}
+
+.tip-box{
+    margin-top:15px;
+    background:#fff8df;
+    border-left:5px solid var(--gold);
+    padding:14px;
+    border-radius:10px;
+    line-height:1.5;
+}
+
+.whatsapp{
+    margin-top:15px;
+    background:#25D366;
+    color:white;
+}
+
+.whatsapp:hover{
+    opacity:.9;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes slideUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.confetti{
+    position:fixed;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    animation:fall linear forwards;
+    z-index:999;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+    }
+}
+</style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="id"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1">&lt;title&gt;Kalkulator Pola Asuh Digital Interaktif&lt;/title&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;style&gt;</p>
-<p class="p1">:root{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--navy:#0A2F44;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>--gold:#F2C94C;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">*{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin:0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding:0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>box-sizing:border-box;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">body{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-family: "Segoe UI", Arial, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background: linear-gradient(180deg,#0A2F44,#123f58);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>min-height:100vh;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>justify-content:center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding:20px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.container{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width:100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>max-width:450px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background:white;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius:20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>overflow:hidden;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>box-shadow:0 10px 35px rgba(0,0,0,.25);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>animation:fadeIn .6s ease;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.header{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background:var(--navy);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color:white;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding:24px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-align:center;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.header h1{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size:1.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>line-height:1.4;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.header p{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>opacity:.85;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-top:8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size:.9rem;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.content{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding:20px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.form-group{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-bottom:18px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">label{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display:block;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-bottom:8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-weight:600;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color:var(--navy);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">select{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width:100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding:12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border:2px solid #ddd;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius:12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size:15px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">button{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width:100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding:14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border:none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius:14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cursor:pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size:16px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-weight:bold;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transition:.3s;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.btn-primary{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background:var(--gold);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color:#222;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.btn-primary:hover{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>transform:translateY(-2px);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.result{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>display:none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-top:20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>animation:slideUp .6s ease;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.score-box{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-align:center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background:#f7f9fb;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius:16px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding:18px;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.score{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-size:48px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-weight:800;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color:var(--navy);</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.color-card{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-top:15px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius:12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding:14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color:white;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>font-weight:bold;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>text-align:center;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.tip-box{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-top:15px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background:#fff8df;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-left:5px solid var(--gold);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>padding:14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius:10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>line-height:1.5;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.whatsapp{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>margin-top:15px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>background:#25D366;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>color:white;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.whatsapp:hover{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>opacity:.9;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">@keyframes fadeIn{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>from{opacity:0;transform:translateY(20px);}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>to{opacity:1;transform:translateY(0);}</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">@keyframes slideUp{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>from{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>opacity:0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>transform:translateY(25px);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>to{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>opacity:1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>transform:translateY(0);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">.confetti{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>position:fixed;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>width:8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>height:8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>border-radius:50%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>animation:fall linear forwards;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>z-index:999;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">@keyframes fall{</p>
-<p class="p1"><span class="Apple-converted-space">    </span>to{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>transform:translateY(110vh) rotate(720deg);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>opacity:0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1">}</p>
-<p class="p1">&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;Kalkulator Pola Asuh Digital&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Temukan rekomendasi singkat sesuai kebiasaan digital anak Anda&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="content"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;label&gt;Usia anak?&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;select id="usia"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="2-5"&gt;2–5 tahun&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="6-9"&gt;6–9 tahun&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="10-12"&gt;10–12 tahun&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;label&gt;Reaksi anak saat screen time habis?&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;select id="reaksi"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="tenang"&gt;Tenang&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="merengek"&gt;Merengek&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="tantrum"&gt;Tantrum&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="agresif"&gt;Agresif&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;label&gt;Aplikasi favorit anak?&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;select id="aplikasi"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="youtube"&gt;YouTube Kids&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="game"&gt;Game Online&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="medsos"&gt;Media Sosial&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="belajar"&gt;Belajar Interaktif&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn-primary" onclick="hitungSkor()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>Lihat Hasil</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="hasil" class="result"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="score-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;Skor Keseimbangan Digital&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="score" id="scoreValue"&gt;100&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="warnaCard" class="color-card"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="tip-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;strong&gt;Tips 3 Menit Hari Ini:&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p id="tipsText"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="whatsapp"</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>onclick="alert('Tips akan dikirim ke nomor WhatsApp Anda (demo)')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Kirim ke WhatsApp</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">function hitungSkor(){</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const usia = document.getElementById("usia").value;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const reaksi = document.getElementById("reaksi").value;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const aplikasi = document.getElementById("aplikasi").value;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let skor = 100;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if(usia === "6-9") skor -= 5;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if(reaksi === "tantrum") skor -= 20;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if(reaksi === "agresif") skor -= 30;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if(reaksi === "merengek") skor -= 10;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if(aplikasi === "medsos") skor -= 15;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if(aplikasi === "belajar") skor += 10;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>skor = Math.max(0, Math.min(100, skor));</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("scoreValue").innerText = skor;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const warnaCard = document.getElementById("warnaCard");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let warnaNama = "";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let warnaHex = "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>switch(aplikasi){</p>
-<p class="p1"><span class="Apple-converted-space">        </span>case "youtube":</p>
-<p class="p1"><span class="Apple-converted-space">            </span>warnaNama = "Kuning Fokus";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>warnaHex = "#F2C94C";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>break;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>case "game":</p>
-<p class="p1"><span class="Apple-converted-space">            </span>warnaNama = "Ungu Fokus";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>warnaHex = "#8E44AD";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>break;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>case "belajar":</p>
-<p class="p1"><span class="Apple-converted-space">            </span>warnaNama = "Hijau Fokus";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>warnaHex = "#27AE60";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>break;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>case "medsos":</p>
-<p class="p1"><span class="Apple-converted-space">            </span>warnaNama = "Oranye Fokus";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>warnaHex = "#F2994A";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>break;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>warnaCard.style.background = warnaHex;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>warnaCard.innerHTML =</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Warna Fokus yang Direkomendasikan: &lt;br&gt;&lt;strong&gt;" +</p>
-<p class="p1"><span class="Apple-converted-space">        </span>warnaNama + "&lt;/strong&gt;";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const tips = [</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Buat ritual 3 menit sebelum gadget dimatikan: hitung mundur bersama lalu berikan pelukan atau high-five.",</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Ajak anak menceritakan satu hal paling menarik yang ditonton hari ini selama 3 menit penuh tanpa interupsi.",</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Tempelkan jadwal screen time sederhana dan biarkan anak memberi tanda centang setelah berhasil mematuhinya.",</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Gunakan timer visual dan lakukan aktivitas fisik ringan selama 3 menit setelah layar dimatikan.",</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Tanyakan tiga pertanyaan reflektif: Apa yang dipelajari? Apa yang menyenangkan? Apa yang ingin dilakukan besok?"</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let index = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if(aplikasi === "belajar") index = 4;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>else if(aplikasi === "youtube") index = 1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>else if(aplikasi === "game") index = 3;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>else if(aplikasi === "medsos") index = 2;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if(reaksi === "tantrum" || reaksi === "agresif"){</p>
-<p class="p1"><span class="Apple-converted-space">        </span>index = 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("tipsText").innerText = tips[index];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("hasil").style.display = "block";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if(skor &gt;= 80){</p>
-<p class="p1"><span class="Apple-converted-space">        </span>confetti();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function confetti(){</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const colors = [</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"#F2C94C",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"#0A2F44",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"#27AE60",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"#8E44AD",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"#F2994A"</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>for(let i=0;i&lt;80;i++){</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const piece = document.createElement("div");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>piece.classList.add("confetti");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>piece.style.left = Math.random()*100 + "vw";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>piece.style.top = "-10px";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>piece.style.background =</p>
-<p class="p1"><span class="Apple-converted-space">            </span>colors[Math.floor(Math.random()*colors.length)];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>piece.style.animationDuration =</p>
-<p class="p1"><span class="Apple-converted-space">            </span>(Math.random()*3+2) + "s";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.body.appendChild(piece);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>setTimeout(()=&gt;{</p>
-<p class="p1"><span class="Apple-converted-space">            </span>piece.remove();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>},5000);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1">}</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<div class="container">
+    <div class="header">
+        <h1>Kalkulator Pola Asuh Digital</h1>
+        <p>Temukan rekomendasi singkat sesuai kebiasaan digital anak Anda</p>
+    </div>
+
+    <div class="content">
+
+        <div class="form-group">
+            <label>Usia anak?</label>
+            <select id="usia">
+                <option value="2-5">2–5 tahun</option>
+                <option value="6-9">6–9 tahun</option>
+                <option value="10-12">10–12 tahun</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Reaksi anak saat screen time habis?</label>
+            <select id="reaksi">
+                <option value="tenang">Tenang</option>
+                <option value="merengek">Merengek</option>
+                <option value="tantrum">Tantrum</option>
+                <option value="agresif">Agresif</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Aplikasi favorit anak?</label>
+            <select id="aplikasi">
+                <option value="youtube">YouTube Kids</option>
+                <option value="game">Game Online</option>
+                <option value="medsos">Media Sosial</option>
+                <option value="belajar">Belajar Interaktif</option>
+            </select>
+        </div>
+
+        <button class="btn-primary" onclick="hitungSkor()">
+            Lihat Hasil
+        </button>
+
+        <div id="hasil" class="result">
+
+            <div class="score-box">
+                <div>Skor Keseimbangan Digital</div>
+                <div class="score" id="scoreValue">100</div>
+            </div>
+
+            <div id="warnaCard" class="color-card"></div>
+
+            <div class="tip-box">
+                <strong>Tips 3 Menit Hari Ini:</strong>
+                <p id="tipsText"></p>
+            </div>
+
+            <button class="whatsapp"
+                    onclick="alert('Tips akan dikirim ke nomor WhatsApp Anda (demo)')">
+                Kirim ke WhatsApp
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+function hitungSkor(){
+
+    const usia = document.getElementById("usia").value;
+    const reaksi = document.getElementById("reaksi").value;
+    const aplikasi = document.getElementById("aplikasi").value;
+
+    let skor = 100;
+
+    if(usia === "6-9") skor -= 5;
+
+    if(reaksi === "tantrum") skor -= 20;
+    if(reaksi === "agresif") skor -= 30;
+    if(reaksi === "merengek") skor -= 10;
+
+    if(aplikasi === "medsos") skor -= 15;
+    if(aplikasi === "belajar") skor += 10;
+
+    skor = Math.max(0, Math.min(100, skor));
+
+    document.getElementById("scoreValue").innerText = skor;
+
+    const warnaCard = document.getElementById("warnaCard");
+
+    let warnaNama = "";
+    let warnaHex = "";
+
+    switch(aplikasi){
+        case "youtube":
+            warnaNama = "Kuning Fokus";
+            warnaHex = "#F2C94C";
+            break;
+
+        case "game":
+            warnaNama = "Ungu Fokus";
+            warnaHex = "#8E44AD";
+            break;
+
+        case "belajar":
+            warnaNama = "Hijau Fokus";
+            warnaHex = "#27AE60";
+            break;
+
+        case "medsos":
+            warnaNama = "Oranye Fokus";
+            warnaHex = "#F2994A";
+            break;
+    }
+
+    warnaCard.style.background = warnaHex;
+    warnaCard.innerHTML =
+        "Warna Fokus yang Direkomendasikan: <br><strong>" +
+        warnaNama + "</strong>";
+
+    const tips = [
+
+        "Buat ritual 3 menit sebelum gadget dimatikan: hitung mundur bersama lalu berikan pelukan atau high-five.",
+
+        "Ajak anak menceritakan satu hal paling menarik yang ditonton hari ini selama 3 menit penuh tanpa interupsi.",
+
+        "Tempelkan jadwal screen time sederhana dan biarkan anak memberi tanda centang setelah berhasil mematuhinya.",
+
+        "Gunakan timer visual dan lakukan aktivitas fisik ringan selama 3 menit setelah layar dimatikan.",
+
+        "Tanyakan tiga pertanyaan reflektif: Apa yang dipelajari? Apa yang menyenangkan? Apa yang ingin dilakukan besok?"
+    ];
+
+    let index = 0;
+
+    if(aplikasi === "belajar") index = 4;
+    else if(aplikasi === "youtube") index = 1;
+    else if(aplikasi === "game") index = 3;
+    else if(aplikasi === "medsos") index = 2;
+
+    if(reaksi === "tantrum" || reaksi === "agresif"){
+        index = 0;
+    }
+
+    document.getElementById("tipsText").innerText = tips[index];
+
+    document.getElementById("hasil").style.display = "block";
+
+    if(skor >= 80){
+        confetti();
+    }
+}
+
+function confetti(){
+
+    const colors = [
+        "#F2C94C",
+        "#0A2F44",
+        "#27AE60",
+        "#8E44AD",
+        "#F2994A"
+    ];
+
+    for(let i=0;i<80;i++){
+
+        const piece = document.createElement("div");
+
+        piece.classList.add("confetti");
+
+        piece.style.left = Math.random()*100 + "vw";
+        piece.style.top = "-10px";
+        piece.style.background =
+            colors[Math.floor(Math.random()*colors.length)];
+
+        piece.style.animationDuration =
+            (Math.random()*3+2) + "s";
+
+        document.body.appendChild(piece);
+
+        setTimeout(()=>{
+            piece.remove();
+        },5000);
+    }
+}
+</script>
+
 </body>
 </html>

@@ -1,222 +1,645 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalkulator Pola Asuh Digital</title>
-<style>
-:root{
---navy:#0A2F44;
---gold:#F2C94C;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-font-family:Segoe UI,Arial,sans-serif;
-background:linear-gradient(135deg,#eaf2f7,#dfeaf1);
-padding:20px;
-}
-.app{
-max-width:450px;
-margin:auto;
-background:#fff;
-border-radius:28px;
-overflow:hidden;
-box-shadow:0 15px 40px rgba(0,0,0,.15);
-}
-.header{
-background:var(--navy);
-color:#fff;
-padding:24px;
-text-align:center;
-}
-.logo{
-font-size:44px;
-}
-.header h1{font-size:1.3rem;margin-top:8px}
-.header p{color:#ffe9a6;font-size:.85rem}
-.content{padding:20px}
-label{display:block;margin:14px 0 8px;font-weight:700;color:var(--navy)}
-input,select{
-width:100%;padding:12px;border:2px solid #d9e3ea;border-radius:14px;
-}
-button{
-width:100%;padding:14px;border:none;border-radius:16px;
-font-weight:700;cursor:pointer;
-}
-.btn{
-background:var(--gold);
-margin-top:18px;
-}
-.result{
-display:none;
-margin-top:20px;
-padding:18px;
-background:#fafafa;
-border-radius:20px;
-animation:fade .4s;
-}
-.gauge-wrap{text-align:center}
-svg{overflow:visible}
-.score{
-font-size:34px;font-weight:800;color:var(--navy)
-}
-.card{
-margin-top:12px;
-padding:12px;
-border-radius:14px;
-background:white;
-border-left:5px solid var(--gold);
-}
-.wa{
-background:#25D366;
-color:#fff;
-margin-top:12px;
-}
-@keyframes fade{
-from{opacity:0;transform:translateY(10px)}
-to{opacity:1;transform:translateY(0)}
-}
-.confetti{
-position:fixed;width:8px;height:8px;border-radius:50%;
-animation:fall 3s linear forwards;
-}
-@keyframes fall{
-to{transform:translateY(110vh) rotate(720deg);opacity:0}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Kalkulator Pola Asuh Digital | IDAI & WHO | Komnas Perlindungan Anak Banten</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #d4e0e9 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 24px 16px 48px;
+            min-height: 100vh;
+        }
+
+        /* App Container */
+        .app-container {
+            max-width: 560px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0,0,0,0.02);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        /* Header Komnas */
+        .komnas-header {
+            background: #0A2F44;
+            padding: 18px 24px;
+            text-align: center;
+            border-bottom: 4px solid #F2C94C;
+        }
+        .komnas-header h3 {
+            color: rgba(255,255,240,0.85);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .komnas-header h2 {
+            color: #F2C94C;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 4px 0;
+        }
+        .komnas-header p {
+            color: #cbdde6;
+            font-size: 0.7rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 28px 24px 32px;
+        }
+
+        .judul-besar {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0A2F44;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .judul-besar i {
+            color: #F2C94C;
+            font-size: 2rem;
+        }
+        .subjudul {
+            font-size: 0.85rem;
+            color: #4a6a7f;
+            margin-bottom: 28px;
+            border-left: 4px solid #F2C94C;
+            padding-left: 14px;
+            font-weight: 400;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: #FEFCF5;
+            border-radius: 32px;
+            padding: 8px 4px 8px 4px;
+            margin-bottom: 28px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #1e3b4c;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+        .input-group label i {
+            color: #F2C94C;
+            width: 22px;
+        }
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 28px;
+            border: 1.5px solid #E2EDF2;
+            background: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1a2c38;
+            transition: 0.2s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #F2C94C;
+            box-shadow: 0 0 0 3px rgba(242,201,76,0.2);
+        }
+        .double-group {
+            display: flex;
+            gap: 12px;
+        }
+        .double-group .input-group {
+            flex: 1;
+        }
+        .radio-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f3f7fa;
+            padding: 8px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+        }
+        .radio-option input {
+            width: 18px;
+            padding: 0;
+            margin: 0;
+            accent-color: #F2C94C;
+        }
+        .btn-hitung {
+            background: #0A2F44;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 44px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 12px;
+            box-shadow: 0 8px 20px rgba(10,47,68,0.25);
+        }
+        .btn-hitung:hover {
+            background: #144e6b;
+            transform: scale(0.98);
+        }
+
+        /* Result Area */
+        .result-area {
+            background: #F8FAFE;
+            border-radius: 36px;
+            padding: 20px 16px;
+            margin-top: 16px;
+            transition: 0.3s;
+        }
+        .hidden {
+            display: none;
+        }
+        .gauge-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0 5px;
+        }
+        canvas {
+            max-width: 230px;
+            width: 100%;
+            height: auto;
+        }
+        .skor-angka {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0A2F44;
+            margin-top: -15px;
+        }
+        .kategori {
+            text-align: center;
+            background: #E9F0F5;
+            display: inline-block;
+            width: auto;
+            margin: 10px auto;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .rekom-card {
+            background: white;
+            border-radius: 24px;
+            padding: 16px;
+            margin: 16px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border-left: 6px solid #F2C94C;
+        }
+        .tips-box {
+            background: #FFF8E7;
+            border-radius: 24px;
+            padding: 16px;
+            margin: 16px 0;
+            border: 1px solid #FFE2A4;
+        }
+        .btn-wa {
+            background: #25D366;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-wa:hover {
+            background: #1da15b;
+        }
+        .footer-note {
+            font-size: 0.65rem;
+            text-align: center;
+            color: #8aa4b5;
+            margin-top: 20px;
+            border-top: 1px solid #e9edf2;
+            padding-top: 16px;
+        }
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 20px 16px;
+            }
+            .judul-besar {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="app">
-<div class="header">
-<div class="logo">🛡️👨‍👩‍👧</div>
-<h1>Kalkulator Pola Asuh Digital</h1>
-<p>Komnas Perlindungan Anak Provinsi Banten</p>
-</div>
+<div class="app-container">
+    <div class="komnas-header">
+        <h3>Bekerja sama dengan</h3>
+        <h2>Komnas Perlindungan Anak Provinsi Banten</h2>
+        <p>#ParentingDigitalSehat | Berbasis Rekomendasi IDAI & WHO</p>
+    </div>
+    <div class="main-content">
+        <div class="judul-besar">
+            <i class="fas fa-shield-alt"></i> Kalkulator Pola Asuh Digital
+        </div>
+        <div class="subjudul">
+            Berdasarkan panduan IDAI (Ikatan Dokter Anak Indonesia) & WHO — evaluasi screen time anak Anda, dapatkan skor kesiapan keluarga serta rekomendasi personal.
+        </div>
 
-<div class="content">
-<label>Nama Anak (Opsional)</label>
-<input id="nama">
+        <div class="form-card">
+            <div class="input-group">
+                <label><i class="fas fa-child"></i> Nama Anak (opsional)</label>
+                <input type="text" id="namaAnak" placeholder="Misal: Aisha, Bintang" autocomplete="off">
+            </div>
+            <div class="double-group">
+                <div class="input-group">
+                    <label><i class="fas fa-calendar-alt"></i> Usia (tahun)</label>
+                    <input type="number" id="usiaTahun" min="0" max="17" value="4" step="1">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-calendar-week"></i> Bulan</label>
+                    <input type="number" id="usiaBulan" min="0" max="11" value="6" step="1">
+                </div>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-hourglass-half"></i> Rata-rata screen time per hari (menit)</label>
+                <input type="number" id="screenTimeMnt" min="0" max="600" value="45" step="5">
+                <small style="color:#5e7f92; font-size:0.7rem;">Termasuk menonton TV, YouTube, game, gadget (tidak termasuk video call interaktif)</small>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-users"></i> Pendampingan orang tua saat screen time?</label>
+                <div class="radio-group">
+                    <label class="radio-option"><input type="radio" name="pendampingan" value="selalu" checked> <i class="fas fa-check-circle"></i> Selalu</label>
+                    <label class="radio-option"><input type="radio" name="pendampingan" value="kadang"> <i class="fas fa-clock"></i> Kadang-kadang</label>
+                    <label class="radio-option"><input type="radio" name="pendampingan" value="tidak"> <i class="fas fa-ban"></i> Tanpa pendampingan</label>
+                </div>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-moon"></i> Screen time 1 jam sebelum tidur?</label>
+                <div class="radio-group">
+                    <label class="radio-option"><input type="radio" name="sebelumTidur" value="ya"> <i class="fas fa-sad-tear"></i> Ya</label>
+                    <label class="radio-option"><input type="radio" name="sebelumTidur" value="tidak" checked> <i class="fas fa-smile"></i> Tidak</label>
+                </div>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-utensils"></i> Screen time saat makan?</label>
+                <div class="radio-group">
+                    <label class="radio-option"><input type="radio" name="saatMakan" value="ya"> <i class="fas fa-tv"></i> Ya</label>
+                    <label class="radio-option"><input type="radio" name="saatMakan" value="tidak" checked> <i class="fas fa-check"></i> Tidak</label>
+                </div>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-film"></i> Jenis konten dominan</label>
+                <select id="jenisKonten">
+                    <option value="edukasi">Konten edukatif/interaktif (belajar, buku digital)</option>
+                    <option value="hiburan">Hiburan umum (kartun, video musik)</option>
+                    <option value="game">Game online/offline (tanpa edukasi)</option>
+                    <option value="medsos">Media sosial (TikTok, Instagram, YouTube tanpa filter)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-mobile-alt"></i> Perkiraan screen time orang tua per hari (menit) - pribadi</label>
+                <input type="number" id="screenTimeOrtu" min="0" max="600" value="180" step="30">
+                <small style="color:#5e7f92;">Anak meniru kebiasaan orang tua, penting untuk regulasi bersama</small>
+            </div>
+            <button class="btn-hitung" id="hitungBtn"><i class="fas fa-chart-simple"></i> Hitung Skor & Dapatkan Panduan</button>
+        </div>
 
-<label>Usia Anak</label>
-<select id="usia">
-<option value="2-5">2–5 Tahun</option>
-<option value="6-9">6–9 Tahun</option>
-<option value="10-12">10–12 Tahun</option>
-</select>
+        <!-- Area Hasil -->
+        <div id="hasilPanel" class="result-area hidden">
+            <div class="gauge-container">
+                <canvas id="speedCanvas" width="250" height="140"></canvas>
+            </div>
+            <div class="skor-angka" id="skorValue">0</div>
+            <div style="text-align:center;"><span class="kategori" id="kategoriLabel">-</span></div>
+            
+            <div class="rekom-card" id="rekomScreenTime">
+                <i class="fas fa-clock" style="color:#F2C94C; margin-right:8px;"></i>
+                <strong>📱 Rekomendasi Screen Time Ideal (IDAI/WHO):</strong><br>
+                <span id="idealScreenText">-</span>
+            </div>
 
-<label>Reaksi Saat Screen Time Habis</label>
-<select id="reaksi">
-<option value="tenang">Tenang</option>
-<option value="merengek">Merengek</option>
-<option value="tantrum">Tantrum</option>
-<option value="agresif">Agresif</option>
-</select>
+            <div class="tips-box" id="tipsBox">
+                <i class="fas fa-lightbulb" style="color:#F2C94C; margin-right:8px;"></i>
+                <strong>🧠 Tips menguatkan peran orang tua:</strong><br>
+                <span id="tipsDetail">Isi kalkulator untuk saran personal.</span>
+            </div>
 
-<label>Aplikasi Favorit</label>
-<select id="aplikasi">
-<option value="youtube">YouTube Kids</option>
-<option value="game">Game Online</option>
-<option value="medsos">Media Sosial</option>
-<option value="belajar">Belajar Interaktif</option>
-</select>
-
-<button class="btn" onclick="hitung()">Lihat Hasil</button>
-
-<div id="hasil" class="result">
-<div class="gauge-wrap">
-<svg width="240" height="140">
-<path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#ddd" stroke-width="18"/>
-<path id="meter" d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#F2C94C" stroke-width="18" stroke-linecap="round"/>
-</svg>
-<div class="score" id="score">100</div>
-</div>
-
-<div class="card" id="status"></div>
-<div class="card" id="warna"></div>
-<div class="card" id="tips"></div>
-
-<button class="wa" onclick="alert('Tips akan dikirim ke nomor WhatsApp Anda (demo)')">Kirim ke WhatsApp</button>
-</div>
-</div>
+            <button class="btn-wa" id="waShareBtn"><i class="fab fa-whatsapp"></i> Kirim hasil ke WhatsApp</button>
+            <div class="footer-note">
+                <i class="fas fa-book-open"></i> Mengacu pada rekomendasi IDAI (2020) & WHO 2019. Screen time pasif tanpa pendampingan berdampak pada perkembangan anak.
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-function hitung(){
-let skor=100;
+    (function() {
+        // DOM elements
+        const namaInput = document.getElementById('namaAnak');
+        const tahunInput = document.getElementById('usiaTahun');
+        const bulanInput = document.getElementById('usiaBulan');
+        const screenMnt = document.getElementById('screenTimeMnt');
+        const pendampinganRadios = document.querySelectorAll('input[name="pendampingan"]');
+        const sebelumTidurRadios = document.querySelectorAll('input[name="sebelumTidur"]');
+        const saatMakanRadios = document.querySelectorAll('input[name="saatMakan"]');
+        const jenisKonten = document.getElementById('jenisKonten');
+        const screenOrtu = document.getElementById('screenTimeOrtu');
+        const hitungBtn = document.getElementById('hitungBtn');
+        const hasilPanel = document.getElementById('hasilPanel');
+        const skorValueSpan = document.getElementById('skorValue');
+        const kategoriLabelSpan = document.getElementById('kategoriLabel');
+        const idealScreenTextSpan = document.getElementById('idealScreenText');
+        const tipsDetailSpan = document.getElementById('tipsDetail');
+        const waShareBtn = document.getElementById('waShareBtn');
 
-const usia=usia.value;
-const reaksi=document.getElementById('reaksi').value;
-const aplikasi=document.getElementById('aplikasi').value;
-const nama=document.getElementById('nama').value || 'Anak Anda';
+        let currentScore = 0;
 
-if(usia==='6-9') skor-=5;
-if(reaksi==='merengek') skor-=10;
-if(reaksi==='tantrum') skor-=20;
-if(reaksi==='agresif') skor-=30;
+        // Canvas speedometer
+        const canvas = document.getElementById('speedCanvas');
+        let ctx = canvas.getContext('2d');
 
-if(aplikasi==='medsos') skor-=15;
-if(aplikasi==='belajar') skor+=10;
+        function drawSpeedometer(score) {
+            if (!ctx) return;
+            const w = canvas.width = 250;
+            const h = canvas.height = 140;
+            ctx.clearRect(0, 0, w, h);
+            let angle = (score / 100) * Math.PI - Math.PI/2;
+            let startAngle = -Math.PI/2;
+            let endAngle = Math.PI/2;
+            // background arc
+            ctx.beginPath();
+            ctx.arc(w/2, h-10, 100, startAngle, endAngle);
+            ctx.strokeStyle = "#E2EDF2";
+            ctx.lineWidth = 18;
+            ctx.stroke();
+            // progress arc with gradient
+            let gradient = ctx.createLinearGradient(20, 0, w-20, 0);
+            if (score < 40) gradient.addColorStop(0, "#F97316");
+            else if (score < 70) gradient.addColorStop(0, "#FACC15");
+            else gradient.addColorStop(0, "#2BA14B");
+            gradient.addColorStop(1, "#F2C94C");
+            ctx.beginPath();
+            ctx.arc(w/2, h-10, 100, startAngle, angle);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 18;
+            ctx.stroke();
+            // center circle
+            ctx.beginPath();
+            ctx.arc(w/2, h-10, 14, 0, 2*Math.PI);
+            ctx.fillStyle = "#0A2F44";
+            ctx.fill();
+            ctx.fillStyle = "white";
+            ctx.font = "bold 15px 'Inter'";
+            ctx.fillText(Math.floor(score), w/2-11, h-5);
+        }
 
-skor=Math.max(0,Math.min(100,skor));
+        // Fungsi mendapatkan batas screen time ideal (menit/hari) berdasarkan usia dalam bulan
+        function getIdealScreenTime(usiaBulanTotal) {
+            if (usiaBulanTotal < 18) {
+                return { maxMenit: 0, catatan: "Hindari screen time kecuali video call dengan keluarga (IDAI & AAP). Interaksi langsung lebih penting." };
+            } else if (usiaBulanTotal < 24) { // 18-24 bulan
+                return { maxMenit: 0, catatan: "Usia 18-24 bulan: hanya video call dengan pendampingan. Perkenalkan screen time secara bertahap dengan konten berkualitas dan dampingi penuh." };
+            } else if (usiaBulanTotal <= 71) { // 2-5 tahun (24-71 bulan)
+                return { maxMenit: 60, catatan: "Rekomendasi IDAI & WHO: maksimal 60 menit/hari untuk usia 2-5 tahun. Prioritaskan konten edukatif dan pendampingan aktif." };
+            } else if (usiaBulanTotal <= 144) { // 6-12 tahun
+                return { maxMenit: 120, catatan: "Usia 6-12 tahun: maksimal 2 jam/hari screen time rekreasi. Tetapkan aturan konsisten dan zona bebas gadget." };
+            } else {
+                return { maxMenit: 120, catatan: "Remaja: batasi screen time rekreasi ≤2 jam/hari, jaga keseimbangan dengan aktivitas fisik dan tidur." };
+            }
+        }
 
-document.getElementById('score').innerText=skor;
-
-const meter=document.getElementById('meter');
-const len=314;
-meter.style.strokeDasharray=len;
-meter.style.strokeDashoffset=len-(skor/100*len);
-
-let warna='';
-let warnaHex='';
-
-if(aplikasi==='youtube'){warna='Kuning Fokus';warnaHex='#F2C94C';}
-if(aplikasi==='game'){warna='Ungu Fokus';warnaHex='#8E44AD';}
-if(aplikasi==='belajar'){warna='Hijau Fokus';warnaHex='#27AE60';}
-if(aplikasi==='medsos'){warna='Oranye Fokus';warnaHex='#F2994A';}
-
-document.getElementById('warna').innerHTML=
-'🎨 Warna Fokus: <b>'+warna+'</b>';
-document.getElementById('warna').style.borderLeftColor=warnaHex;
-
-const tips=[
-'Buat ritual 3 menit sebelum gadget dimatikan.',
-'Ajak anak menceritakan hal menarik yang ditonton hari ini.',
-'Gunakan jadwal screen time dan checklist harian.',
-'Lakukan aktivitas fisik 3 menit setelah layar dimatikan.',
-'Tanyakan: apa yang dipelajari hari ini?'
-];
-
-let tip=tips[0];
-if(aplikasi==='youtube') tip=tips[1];
-if(aplikasi==='medsos') tip=tips[2];
-if(aplikasi==='game') tip=tips[3];
-if(aplikasi==='belajar') tip=tips[4];
-
-document.getElementById('tips').innerHTML=
-'💡 <b>Tips untuk '+nama+':</b><br>'+tip;
-
-let status='';
-if(skor>=80) status='🏆 Keluarga Digital Tangguh';
-else if(skor>=60) status='🌟 Orang Tua Tanggap Digital';
-else status='🌱 Perlu Pendampingan Lebih Intensif';
-
-document.getElementById('status').innerHTML=status;
-
-document.getElementById('hasil').style.display='block';
-
-if(skor>=80) confetti();
-}
-
-function confetti(){
-for(let i=0;i<60;i++){
-let c=document.createElement('div');
-c.className='confetti';
-c.style.left=Math.random()*100+'vw';
-c.style.background=['#F2C94C','#0A2F44','#27AE60','#8E44AD'][Math.floor(Math.random()*4)];
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),3000);
-}
-}
+        // Hitung skor (0-100)
+        function hitungSkor(usiaBulan, screenTimeMenit, pendampinganVal, sebelumTidurVal, saatMakanVal, kontenVal, ortuMenit) {
+            let skor = 100;
+            const ideal = getIdealScreenTime(usiaBulan);
+            const idealMenit = ideal.maxMenit;
+            
+            // 1. Kepatuhan durasi screen time
+            if (idealMenit === 0) {
+                if (screenTimeMenit > 0) skor -= 40; // sangat tidak sesuai
+                else if (screenTimeMenit === 0) skor += 5;
+            } else {
+                let selisih = screenTimeMenit - idealMenit;
+                if (selisih <= 0) {
+                    skor += 5; // bonus
+                } else if (selisih <= 30) {
+                    skor -= 15;
+                } else if (selisih <= 60) {
+                    skor -= 30;
+                } else {
+                    skor -= 50;
+                }
+            }
+            
+            // 2. Pendampingan
+            if (pendampinganVal === 'selalu') skor += 12;
+            else if (pendampinganVal === 'kadang') skor -= 8;
+            else skor -= 20;
+            
+            // 3. Screen time sebelum tidur (1 jam)
+            if (sebelumTidurVal === 'ya') skor -= 15;
+            else skor += 5;
+            
+            // 4. Screen time saat makan
+            if (saatMakanVal === 'ya') skor -= 12;
+            else skor += 5;
+            
+            // 5. Jenis konten
+            if (kontenVal === 'edukasi') skor += 10;
+            else if (kontenVal === 'hiburan') skor += 2;
+            else if (kontenVal === 'game') skor -= 8;
+            else if (kontenVal === 'medsos') skor -= 25;
+            
+            // 6. Screen time orang tua (pengaruh role model)
+            if (ortuMenit > 240) skor -= 12;
+            else if (ortuMenit > 120) skor -= 4;
+            else if (ortuMenit <= 60) skor += 8;
+            else skor += 2;
+            
+            // Batasi 0-100
+            skor = Math.min(100, Math.max(0, Math.floor(skor)));
+            return skor;
+        }
+        
+        // Generate tips parenting
+        function generateTips(usiaBulan, screenTimeMenit, pendampinganVal, sebelumTidurVal, saatMakanVal, kontenVal, ortuMenit, skor, idealMenit) {
+            let tips = "";
+            if (skor >= 85) {
+                tips = "✨ Luar biasa! Pola asuh digital Anda sudah sangat sehat. Pertahankan kebiasaan ini, terus dampingi anak, dan jadilah teladan. Anak akan tumbuh dengan keseimbangan digital. ";
+            } else if (skor >= 70) {
+                tips = "✅ Anda sudah di jalur tepat. Sedikit peningkatan bisa membuat perbedaan besar. Coba terapkan zona bebas gadget saat makan & sebelum tidur. ";
+            } else if (skor >= 50) {
+                tips = "⚠️ Masih ada PR. Kurangi screen time pasif, tingkatkan pendampingan aktif. Buat kontrak keluarga: 'Screen time hanya bersama orang tua' . ";
+            } else {
+                tips = "🚨 Perlu perbaikan segera. Konsultasikan dengan dokter anak, batasi drastis screen time, alihkan ke aktivitas fisik dan interaksi langsung. Jangan berikan gadget sebagai pengasuh digital. ";
+            }
+            
+            // spesifik
+            if (screenTimeMenit > idealMenit && idealMenit>0) {
+                tips += `Anak menggunakan screen time ${screenTimeMenit} menit/hari, melebihi rekomendasi (${idealMenit} mnt). Coba gunakan timer visual dan aktivitas pengganti seperti bermain di luar. `;
+            }
+            if (pendampinganVal !== 'selalu') {
+                tips += "Pendampingan saat screen time sangat penting untuk menjelaskan konten dan membangun koneksi. Tonton bersama anak. ";
+            }
+            if (sebelumTidurVal === 'ya') {
+                tips += "Paparan layar 1 jam sebelum tidur mengganggu melatonin dan kualitas tidur. Matikan gawai 1-2 jam sebelum tidur. ";
+            }
+            if (saatMakanVal === 'ya') {
+                tips += "Screen time saat makan mengurangi interaksi keluarga dan kesadaran makan. Jadikan meja makan bebas gawai. ";
+            }
+            if (kontenVal === 'medsos') {
+                tips += "Media sosial sangat tidak disarankan untuk anak di bawah 13 tahun. Pasang parental control dan ganti dengan konten kreatif. ";
+            }
+            if (ortuMenit > 180) {
+                tips += "Anak meniru kebiasaan orang tua. Cobalah keluarga 'digital detox' 2 jam setiap malam. ";
+            }
+            // tambahan berdasarkan usia
+            if (usiaBulan < 24 && screenTimeMenit > 0) {
+                tips += "WHO & IDAI: anak di bawah 2 tahun sebaiknya tanpa screen time (kecuali video call). Interaksi langsung jauh lebih bernutrisi untuk otak. ";
+            }
+            return tips;
+        }
+        
+        // Update tampilan hasil
+        function updateUI() {
+            let nama = namaInput.value.trim() || "Ananda";
+            let tahun = parseInt(tahunInput.value) || 0;
+            let bulan = parseInt(bulanInput.value) || 0;
+            let totalBulan = tahun * 12 + bulan;
+            if (totalBulan < 0) totalBulan = 0;
+            let screenMenit = parseInt(screenMnt.value) || 0;
+            let pendampingan = getSelectedRadioValue('pendampingan');
+            let sebelumTidur = getSelectedRadioValue('sebelumTidur');
+            let saatMakan = getSelectedRadioValue('saatMakan');
+            let konten = jenisKonten.value;
+            let ortuMenit = parseInt(screenOrtu.value) || 0;
+            
+            const ideal = getIdealScreenTime(totalBulan);
+            const idealMax = ideal.maxMenit;
+            const skor = hitungSkor(totalBulan, screenMenit, pendampingan, sebelumTidur, saatMakan, konten, ortuMenit);
+            currentScore = skor;
+            
+            // Tampilkan skor & speedometer
+            skorValueSpan.innerText = skor;
+            drawSpeedometer(skor);
+            let kategori = "";
+            if (skor >= 85) kategori = "🏆 Parenting Digital Prima";
+            else if (skor >= 70) kategori = "👍 Cakap Digital";
+            else if (skor >= 50) kategori = "📘 Perlu Penguatan";
+            else kategori = "⚠️ Zona Waspada";
+            kategoriLabelSpan.innerText = kategori;
+            
+            // Rekomendasi screen time ideal
+            let usiaTeks = `${tahun} tahun ${bulan} bulan`;
+            if (totalBulan < 18) usiaTeks += " (di bawah 18 bulan)";
+            else if (totalBulan < 24) usiaTeks += " (18-24 bulan)";
+            else if (totalBulan <= 71) usiaTeks += " (usia prasekolah)";
+            else usiaTeks += " (usia sekolah/remaja)";
+            
+            let idealText = `${usiaTeks} → `;
+            if (idealMax === 0) idealText += `TIDAK DIANJURKAN screen time pasif. ${ideal.catatan}`;
+            else idealText += `Maksimal ${idealMax} menit/hari. ${ideal.catatan}`;
+            idealScreenTextSpan.innerHTML = idealText;
+            
+            // Tips
+            const tips = generateTips(totalBulan, screenMenit, pendampingan, sebelumTidur, saatMakan, konten, ortuMenit, skor, idealMax);
+            tipsDetailSpan.innerHTML = tips;
+            
+            // trigger confetti jika skor tinggi
+            if (skor >= 85) {
+                canvasConfetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#F2C94C', '#0A2F44'] });
+            }
+            hasilPanel.classList.remove('hidden');
+            hasilPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function getSelectedRadioValue(name) {
+            let radios = document.querySelectorAll(`input[name="${name}"]`);
+            for (let r of radios) {
+                if (r.checked) return r.value;
+            }
+            return 'tidak';
+        }
+        
+        function handleCalculate() {
+            // validasi sederhana
+            let tahun = parseInt(tahunInput.value);
+            let bulan = parseInt(bulanInput.value);
+            if (isNaN(tahun)) tahun = 0;
+            if (isNaN(bulan)) bulan = 0;
+            if (tahun < 0) tahun = 0;
+            if (bulan < 0) bulan = 0;
+            if (tahun > 17) tahun = 17;
+            if (bulan > 11) bulan = 11;
+            tahunInput.value = tahun;
+            bulanInput.value = bulan;
+            updateUI();
+        }
+        
+        // WhatsApp share
+        function shareToWA() {
+            let nama = namaInput.value.trim() || "Anak";
+            let tahun = tahunInput.value;
+            let bulan = bulanInput.value;
+            let screenMenit = screenMnt.value;
+            let skor = currentScore;
+            let idealSpan = idealScreenTextSpan.innerText;
+            let tipsRingkas = tipsDetailSpan.innerText.substring(0, 220);
+            let kategori = kategoriLabelSpan.innerText;
+            let message = `🌱 *Kalkulator Pola Asuh Digital - Komnas Perlindungan Anak Provinsi Banten*\n\n`;
+            message += `👧 Nama anak: ${nama}\n📅 Usia: ${tahun} tahun ${bulan} bulan\n📱 Screen time harian: ${screenMenit} menit\n🎯 Skor kesiapan: ${skor}/100 (${kategori})\n\n`;
+            message += `✅ Rekomendasi IDAI/WHO:\n${idealSpan}\n\n`;
+            message += `💡 Tips untuk orang tua:\n${tipsRingkas}...\n\n`;
+            message += `🔁 Gunakan kalkulator secara berkala untuk mendampingi anak di era digital. #ParentingDigitalBanten #IDAI #WHO`;
+            const encoded = encodeURIComponent(message);
+            window.open(`https://wa.me/?text=${encoded}`, '_blank');
+        }
+        
+        hitungBtn.addEventListener('click', handleCalculate);
+        waShareBtn.addEventListener('click', shareToWA);
+        
+        // initial draw
+        drawSpeedometer(0);
+        hasilPanel.classList.add('hidden');
+    })();
 </script>
 </body>
 </html>
